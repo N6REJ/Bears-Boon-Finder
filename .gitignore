@@ -1,0 +1,9 @@
+# JetBrains
+/.idea
+/*.iml
+
+# Ace3 external libraries
+/Libs/
+
+# Qodo
+/.qodo
