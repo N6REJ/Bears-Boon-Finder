@@ -1,7 +1,7 @@
 ## Interface: 120105
-## Version: 2026.10.27
+## Version: 2026.10.28
 ## Title: Bears Boon Finder
-## Notes: Find boon locations within a Delve
+## Notes: Locate Mislaid Curiosities in Delves and Labyrinths
 ## Author: Bearesquishy
 ## IconTexture: Interface\Icons\spell_azerite_essence08
 ## SavedVariables: BearsBoonFinderDB
@@ -17,7 +17,10 @@ Libs\AceConsole-3.0\AceConsole-3.0.xml
 Libs\AceDB-3.0\AceDB-3.0.xml
 Libs\AceGUI-3.0\AceGUI-3.0.xml
 Libs\AceLocale-3.0\AceLocale-3.0.xml
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 
+MapPins.xml
 Locales\enUS.lua
 core.lua
 scanner.lua

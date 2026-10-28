@@ -3,7 +3,7 @@
 /*.iml
 
 # Ace3 external libraries
-/Libs/
+/Libs
 
 # Qodo
 /.qodo

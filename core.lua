@@ -8,7 +8,12 @@ local addon = AceAddon:NewAddon(addonName, "AceConsole-3.0", "AceEvent-3.0")
 addonTable.addon = addon
 
 local defaults = {
-    profile = {},
+    profile = {
+        showBoonPins = true,
+        minimap = {
+            hide = false,
+        },
+    },
 }
 
 function addon:OnInitialize()
@@ -17,12 +22,11 @@ function addon:OnInitialize()
     self:RegisterChatCommand("boonfinder", "OpenFinder")
     self:RegisterChatCommand("bbf", "OpenFinder")
 
-    self:RegisterEvent("PLAYER_ENTERING_WORLD", "RefreshDelveStatus")
-    self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "RefreshDelveStatus")
-    self:RegisterEvent("ACTIVE_DELVE_DATA_UPDATE", "RefreshDelveStatus")
-    self:RegisterEvent("WALK_IN_DATA_UPDATE", "RefreshDelveStatus")
-
     self:Print(L["Loaded. Type /boonfinder to open the finder."])
+end
+
+function addon:OnEnable()
+    self:CreateMinimapButton()
 end
 
 function addon:OpenFinder()
@@ -30,17 +34,22 @@ function addon:OpenFinder()
         self:CreateFinderFrame()
     end
 
-    self:RefreshDelveStatus()
+    self:RefreshFinder()
     self.finderFrame:Show()
 end
 
-function addon:RefreshDelveStatus()
+function addon:RefreshFinder()
+    local scanner = self:GetModule("Scanner")
     if self.statusLabel then
-        self.statusLabel:SetText(self:GetModule("Scanner"):GetStatus())
+        self.statusLabel:SetText(scanner:GetStatus())
+        self.resultsLabel:SetText(scanner:GetSummary())
+        self.pinCheckbox:SetValue(self.db.profile.showBoonPins)
     end
 end
 
 function addon:ScanCurrentDelve()
     local _, message = self:GetModule("Scanner"):Scan()
-    self.resultsLabel:SetText(message or L["Boon locations will appear here when discovery is implemented."])
+    if self.resultsLabel then
+        self.resultsLabel:SetText(message or L["No potential Mislaid Curiosity locations found."])
+    end
 end
